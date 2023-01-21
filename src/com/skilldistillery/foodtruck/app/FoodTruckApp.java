@@ -18,12 +18,13 @@ public class FoodTruckApp {
 	public FoodTruckApp() {
 		for (int i = 0; i < fleet.length; i++) {
 			System.out.println("Enter the name of the food truck: ");
-			String ftName = kb.next();
+			String ftName = kb.nextLine();
 			if (ftName.equals("Quit") || ftName.equals("quit")) {
 				break;
 			}
 			System.out.println("Enter food truck type");
 			String ftType = kb.next();
+			kb.nextLine();
 			System.out.println("Enter food truck rating 1-5.");
 			int ftRating = kb.nextInt();
 			kb.nextLine();

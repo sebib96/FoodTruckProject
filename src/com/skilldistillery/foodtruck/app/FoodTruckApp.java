@@ -5,54 +5,87 @@ import java.util.Scanner;
 import com.skilldistillery.foodtruck.entities.Foodtruck;
 
 public class FoodTruckApp {
-
-	public static void main(String[] args) {
-		Scanner kb = new Scanner(System.in);
-		FoodTruckApp foodTruckApp = new FoodTruckApp(kb);
-		foodTruckApp.menu();
-		kb.close();
-	}
-
-//fleet of Foodtrucks
 	private Foodtruck[] fleet = new Foodtruck[5];
 
-	Scanner kb = new Scanner(System.in);
+	private Scanner kb = new Scanner(System.in);
 
-	Foodtruck ftOne = new Foodtruck();
-	Foodtruck ftTwo = new Foodtruck();
-	Foodtruck ftThree = new Foodtruck();
-	Foodtruck ftFour = new Foodtruck();
-	Foodtruck ftFive = new Foodtruck();
+	public static void main(String[] args) {
 
-	public FoodTruckApp(Scanner kb) {
+		FoodTruckApp foodTruckApp = new FoodTruckApp();
+		foodTruckApp.menu();
+	}
+
+	public FoodTruckApp() {
 		for (int i = 0; i < fleet.length; i++) {
-			
-			int ftId = (i);
 			System.out.println("Enter the name of the food truck: ");
 			String ftName = kb.next();
-			ftOne.setName(ftName);
+			if (ftName.equals("Quit") || ftName.equals("quit")) {
+				break;
+			}
 			System.out.println("Enter food truck type");
 			String ftType = kb.next();
 			System.out.println("Enter food truck rating 1-5.");
 			int ftRating = kb.nextInt();
+			kb.nextLine();
 			fleet[i] = new Foodtruck(ftName, ftType, ftRating);
 		}
 	}
 
 	public void menu() {
-		System.out.println("1. All existing food trucks \n" + "2. Average rating of food trucks \n"
-				+ "3. Display highest rated food truck \n" + "4. Quit");
-		int userSelection = kb.nextInt();
 
-		switch (userSelection) {
-		case 1:
+		boolean running = true;
 
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
+		do {
+			System.out.println("1. All existing food trucks \n" + "2. Average rating of food trucks \n"
+					+ "3. Display highest rated food truck \n" + "4. Quit");
+			int userSelection = kb.nextInt();
+			kb.nextLine();
+			switch (userSelection) {
+			case 1:
+				printFoodtruckList();
+				break;
+			case 2:
+				avgRating();
+				break;
+			case 3:
+				highestRated();
+				break;
+			case 4:
+				System.out.println("Goodbye");
+				running = false;
+				return;
+			}
+		} while (running);
+	}
+
+	public int avgRating() {
+		int sumRating = 0;
+		for (int i = 0; i < Foodtruck.getNextTruckId(); i++) {
+			sumRating += fleet[i].getRating();
+		}
+		int avgRating = (sumRating / Foodtruck.getNextTruckId());
+		System.out.println("Average rating of the food trucks you entered is " + avgRating);
+		return avgRating;
+	}
+
+	public Foodtruck highestRated() {
+		int highestRated = -1;
+		Foodtruck highestRatedTruck = null;
+		for (int i = 0; i < Foodtruck.getNextTruckId(); i++) {
+			Foodtruck currentFoodtruck = fleet[i];
+			if (currentFoodtruck.getRating() > highestRated) {
+				highestRated = currentFoodtruck.getRating();
+				highestRatedTruck = currentFoodtruck;
+			}
+		}
+		System.out.println("The highest rated food truck is: " + highestRatedTruck);
+		return highestRatedTruck;
+	}
+
+	public void printFoodtruckList() {
+		for (int i = 0; i < Foodtruck.getNextTruckId(); i++) {
+			Foodtruck currentFoodtruck = fleet[i];
+			System.out.println(currentFoodtruck.getName() + "\n");
 		}
 	}
 

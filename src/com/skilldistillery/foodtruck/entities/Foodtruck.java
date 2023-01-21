@@ -2,17 +2,23 @@ package com.skilldistillery.foodtruck.entities;
 
 public class Foodtruck {
 	private int id;
-	private static int nextTruckId;
+	private static int nextTruckId = 0;
 	private String name;
 	private String foodType;
 	private int rating;
 
 	
-	public Foodtruck(String name, String foodType, int rating, int nextTruckId) {
+	@Override
+	public String toString() {
+		return  name;
+	}
+
+	public Foodtruck(String name, String foodType, int rating) {
 		this.name = name;
 		this.foodType = foodType;
 		this.rating = rating;
-		this.nextTruckId = nextTruckId;
+		this.id = nextTruckId;
+		nextTruckId++;
 	}
 	
 	public Foodtruck() {
@@ -56,5 +62,6 @@ public class Foodtruck {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
+	
 
 }

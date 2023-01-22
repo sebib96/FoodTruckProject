@@ -86,7 +86,7 @@ public class FoodTruckApp {
 	public void printFoodtruckList() {
 		for (int i = 0; i < Foodtruck.getNextTruckId(); i++) {
 			Foodtruck currentFoodtruck = fleet[i];
-			System.out.println(currentFoodtruck.getName() + "\n");
+			System.out.println(currentFoodtruck.getName());
 		}
 	}
 
